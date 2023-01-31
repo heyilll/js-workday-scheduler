@@ -2,17 +2,19 @@
 var timeDisplayEl = $('#currentDay');
 var projectDisplayEl = $('.container');
    
+// sets and displays current day
 var currDate = moment().format("dddd, MMMM Do");
 timeDisplayEl.text(currDate);
   
+// creates each timeblock from 9 to 5 
 for (let i = 0; i < 9; i++) {
-    // sets the hour for this 
+    // sets the hour for this specific loop
     var thisHr = i + 9;
 
     // adds table row
-    var sss = $("<tr>").addClass("row time-block");
+    var sss = $("<div>").addClass("row time-block");
 
-    // gets current hour and compares against this hour in the loop
+    // gets current hour and compares against this hour in the specific loop
     if (moment().format("H") > thisHr) {
         sss.addClass("past");
     } else if (moment().format("H") <  thisHr) {
@@ -20,20 +22,22 @@ for (let i = 0; i < 9; i++) {
     } else {
         sss.addClass("present");
     }
+
+    // saves the specific hour to a new attribute called hr
     sss.attr("hr", thisHr);
 
     // adds text area for this timeblock
     var desc = $("<textarea>").addClass("col-lg-10");
 
-    // if in localstorage then show
+    // if in localstorage then show saved content else show nothing
     if (localStorage.getItem("hour-" + thisHr) ) {
         desc.text(localStorage.getItem("hour-" + thisHr));
     } else {
         desc.text("");
     }
 
-    // adds cell for the hour
-    var hr = $('<td>').addClass('col-lg-1 hour');
+    // adds div for the hour
+    var hr = $('<div>').addClass('col-lg-1 hour');
 
     // adds correct AM OR PM
     if (thisHr < 12) {
@@ -44,17 +48,14 @@ for (let i = 0; i < 9; i++) {
         hr.text(thisHr + "PM");
     }
      
-    // adds cell for save button
+    // adds div for save button
     var saveProjectBtn = $('<i>').addClass('fa-solid fa-floppy-disk ');
-    var btn  = $('<button>').addClass("block ");
-    btn.attr("type","button");
-    var saveProject  = $('<td>').addClass('col-lg-1 saveBtn '); 
+    var saveProject  = $('<button>').addClass('col-lg-1 saveBtn block'); 
 
-    // appends button to saveBtn cell
-    btn.append(saveProjectBtn);
-    saveProject.append(btn);
+    // appends button 
+    saveProject.append(saveProjectBtn);
 
-    // appends to table row and then display
+    // appends to div and displays
     sss.append(hr, desc, saveProject);
     projectDisplayEl.append(sss);
 }
@@ -62,13 +63,13 @@ for (let i = 0; i < 9; i++) {
 function handleSave(event) {
     // gets target of click and the parent timeblock
     var targ = $(event.target);
-    var outerTR = targ.closest('tr');
+    var outerTR = targ.closest('div');
  
-    // takes the hour and text from the triggered timeblock
+    // takes the hour and text from the triggered timeblock and saves to local storage
     var hour = outerTR.attr("hr");
     var content = outerTR.children('textarea').val().trim();
-
     localStorage.setItem("hour-" + hour, content);
 }
 
+// event listener for save button clicks
 $("button").on('click', handleSave);
