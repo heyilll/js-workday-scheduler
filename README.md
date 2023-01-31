@@ -22,3 +22,4 @@ N/A
 * Click the save icon to save text in each timeblock
 
 ## Screenshot
+![Screenshot 2023-01-31 at 00-58-07 Work Day Scheduler](https://user-images.githubusercontent.com/117127128/215631899-8998b50b-3e27-47e9-bab6-3932af6f6831.png)
