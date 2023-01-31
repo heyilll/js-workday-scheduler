@@ -50,7 +50,7 @@ for (let i = 0; i < 9; i++) {
      
     // adds div for save button
     var saveProjectBtn = $('<i>').addClass('fa-solid fa-floppy-disk ');
-    var saveProject  = $('<button>').addClass('col-lg-1 saveBtn block'); 
+    var saveProject  = $('<button>').addClass('col-lg-1 saveBtn'); 
 
     // appends button 
     saveProject.append(saveProjectBtn);
